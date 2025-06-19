@@ -100,6 +100,9 @@
     "name": "GlassEffectViewSpec",
     "type": "all",
     "jsSrcsDir": "src",
+    "android": {
+      "javaPackageName": "com.glasseffectview"
+    },
     "ios": {
       "componentProvider": {
         "GlassEffectView": "GlassEffectView"
