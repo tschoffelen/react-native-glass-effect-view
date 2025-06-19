@@ -19,11 +19,13 @@ only build successfully on Xcode 26 or newer.
 import { Text } from "react-native";
 import { GlassEffectView } from "react-native-glass-effect-view";
 
-// ...
-
-<GlassEffectView isInteractive>
-  <Text>Hello world!</Text>
-</GlassEffectView>;
+const App = () => {
+  return (
+    <GlassEffectView isInteractive>
+      <Text>Hello world!</Text>
+    </GlassEffectView>
+  );
+};
 ```
 
 ## Props
@@ -43,7 +45,6 @@ import { GlassEffectView } from "react-native-glass-effect-view";
 - On iOS 26+, the native glass effect implementation is used by default.
 - On older iOS versions and Android, a fallback implementation provides a similar visual effect.
 - The fallback implementation uses CSS-style shadows and background blur effects. It's nowhere near as cool, but it should serve as a decent fallback.
-
 
 <br /><br />
 
