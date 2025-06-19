@@ -9,7 +9,10 @@ export const FallbackGlassEffectView = (props: GlassEffectViewProps) => {
   const appearance = isAuto ? userColorScheme : props.appearance;
 
   const styles = appearance === "dark" ? darkStyles : lightStyles;
-  const flattenedStyle = StyleSheet.flatten([styles.container, props.style]);
+  const flattenedStyle = StyleSheet.flatten([
+    styles.container,
+    props.style,
+  ]) as any;
 
   return (
     <View
