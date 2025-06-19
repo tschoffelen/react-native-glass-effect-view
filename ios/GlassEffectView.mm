@@ -1,32 +1,32 @@
-#import "GlassEffectViewView.h"
+#import "GlassEffectView.h"
 
 #import <UIKit/UIKit.h>
-#import <react/renderer/components/GlassEffectViewViewSpec/ComponentDescriptors.h>
-#import <react/renderer/components/GlassEffectViewViewSpec/EventEmitters.h>
-#import <react/renderer/components/GlassEffectViewViewSpec/Props.h>
-#import <react/renderer/components/GlassEffectViewViewSpec/RCTComponentViewHelpers.h>
+#import <react/renderer/components/GlassEffectViewSpec/ComponentDescriptors.h>
+#import <react/renderer/components/GlassEffectViewSpec/EventEmitters.h>
+#import <react/renderer/components/GlassEffectViewSpec/Props.h>
+#import <react/renderer/components/GlassEffectViewSpec/RCTComponentViewHelpers.h>
 
 #import "RCTFabricComponentsPlugins.h"
 
 using namespace facebook::react;
 
-@interface GlassEffectViewView () <RCTGlassEffectViewViewViewProtocol>
+@interface GlassEffectView () <RCTGlassEffectViewProtocol>
 
 @end
 
-@implementation GlassEffectViewView {
+@implementation GlassEffectView {
   UIVisualEffectView * _view;
 }
 
 + (ComponentDescriptorProvider)componentDescriptorProvider
 {
-  return concreteComponentDescriptorProvider<GlassEffectViewViewComponentDescriptor>();
+  return concreteComponentDescriptorProvider<GlassEffectViewComponentDescriptor>();
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
   if (self = [super initWithFrame:frame]) {
-    static const auto defaultProps = std::make_shared<const GlassEffectViewViewProps>();
+    static const auto defaultProps = std::make_shared<const GlassEffectViewProps>();
     _props = defaultProps;
     
     _view = [[UIVisualEffectView alloc] init];
@@ -64,12 +64,14 @@ using namespace facebook::react;
 
 - (void)updateProps:(Props::Shared const &)props oldProps:(Props::Shared const &)oldProps
 {
-  const auto &oldViewProps = *std::static_pointer_cast<GlassEffectViewViewProps const>(_props);
-  const auto &newViewProps = *std::static_pointer_cast<GlassEffectViewViewProps const>(props);
+  const auto &oldViewProps = *std::static_pointer_cast<GlassEffectViewProps const>(_props);
+  const auto &newViewProps = *std::static_pointer_cast<GlassEffectViewProps const>(props);
   
   if (@available(iOS 26.0, *)) {
     if (oldViewProps.tintColor != newViewProps.tintColor || oldViewProps.isInteractive != newViewProps.isInteractive) {
       UIGlassEffect *glassEffect = [[UIGlassEffect alloc] init];
+      
+      // Apply props
       NSString * colorToConvert = [[NSString alloc] initWithUTF8String: newViewProps.tintColor.c_str()];
       [glassEffect setTintColor:[self hexStringToColor:colorToConvert]];
       [glassEffect setInteractive:newViewProps.isInteractive];
@@ -79,13 +81,10 @@ using namespace facebook::react;
       newView.effect = glassEffect;
       
       // Set appearance
-      if (newViewProps.appearance == GlassEffectViewViewAppearance::Light) {
+      if (newViewProps.appearance == GlassEffectViewAppearance::Light) {
         newView.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
-      } else if (newViewProps.appearance == GlassEffectViewViewAppearance::Dark) {
-        NSLog(@"Setting dark appearance");
+      } else if (newViewProps.appearance == GlassEffectViewAppearance::Dark) {
         newView.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
-      }else {
-        NSLog(@"Other appearance");
       }
       
       // Move subviews from old contentView to new contentView
@@ -102,9 +101,9 @@ using namespace facebook::react;
   [super updateProps:props oldProps:oldProps];
 }
 
-Class<RCTComponentViewProtocol> GlassEffectViewViewCls(void)
+Class<RCTComponentViewProtocol> GlassEffectViewCls(void)
 {
-  return GlassEffectViewView.class;
+  return GlassEffectView.class;
 }
 
 - hexStringToColor:(NSString *)stringToConvert

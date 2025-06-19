@@ -2,12 +2,12 @@
 #import <React/RCTUIManager.h>
 #import "RCTBridge.h"
 
-@interface GlassEffectViewViewManager : RCTViewManager
+@interface GlassEffectViewManager : RCTViewManager
 @end
 
-@implementation GlassEffectViewViewManager
+@implementation GlassEffectViewManager
 
-RCT_EXPORT_MODULE(GlassEffectViewView)
+RCT_EXPORT_MODULE(GlassEffectView)
 
 - (UIView *)view
 {

@@ -8,6 +8,9 @@ A native liquid glass view for iOS, with fallbacks for older versions and Androi
 npm install react-native-glass-effect-view
 ```
 
+Make sure to rebuild your project after installing the package. On iOS, your project will
+only build successfully on Xcode 26 or newer.
+
 ## Usage
 
 ```js
