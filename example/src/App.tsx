@@ -12,8 +12,10 @@ import { GlassEffectView } from 'react-native-glass-effect-view';
 
 export default function App() {
   const [options, setOptions] = useState({
+    useNative: true,
     isInteractive: true,
     tintColor: undefined as string | undefined,
+    appearance: 'default',
     darkBackground: false,
   });
 
@@ -31,6 +33,8 @@ export default function App() {
           <GlassEffectView
             isInteractive={options.isInteractive}
             tintColor={options.tintColor}
+            useNative={options.useNative}
+            appearance={options.appearance}
             style={styles.box}
           >
             <Text
@@ -48,6 +52,8 @@ export default function App() {
           <GlassEffectView
             isInteractive={options.isInteractive}
             tintColor={options.tintColor}
+            useNative={options.useNative}
+            appearance={options.appearance}
             style={styles.button}
           >
             <Image
@@ -68,12 +74,33 @@ export default function App() {
         <View style={styles.options}>
           <View style={styles.option}>
             <Switch
+              value={options.useNative}
+              onValueChange={(value) =>
+                setOptions({ ...options, useNative: value })
+              }
+            />
+            <Text>Use native: {options.useNative ? 'yes' : 'no'}</Text>
+          </View>
+          <View style={styles.option}>
+            <Switch
               value={options.isInteractive}
               onValueChange={(value) =>
                 setOptions({ ...options, isInteractive: value })
               }
             />
             <Text>Interactive: {options.isInteractive ? 'yes' : 'no'}</Text>
+          </View>
+          <View style={styles.option}>
+            <Switch
+              value={options.appearance === 'dark'}
+              onValueChange={(value) =>
+                setOptions({
+                  ...options,
+                  appearance: value ? 'dark' : 'light',
+                })
+              }
+            />
+            <Text>Appearance: {options.appearance}</Text>
           </View>
           <View style={styles.option}>
             <Switch

@@ -103,9 +103,6 @@
     "ios": {
       "componentProvider": {
         "GlassEffectView": "GlassEffectView"
-      },
-      "modulesProvider": {
-        "GlassEffect": "RCTGlassEffect"
       }
     }
   },

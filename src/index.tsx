@@ -1,16 +1,16 @@
-import { NativeGlassEffectView } from "./NativeComponent";
-import { NativeModule } from "./NativeModule";
+import { Platform } from "react-native";
 
+import NativeGlassEffectView from "./GlassEffectViewNativeComponent";
+import type { GlassEffectViewProps } from "./GlassEffectViewNativeComponent";
 import { FallbackGlassEffectView } from "./FallbackGlassEffectView";
-import type { GlassEffectViewProps } from "./GlassEffectViewProps";
 
-export * from "./NativeComponent";
-export * from "./GlassEffectViewProps";
+export * from "./GlassEffectViewNativeComponent";
+
+export const isNativeModuleAvailable =
+  Platform.OS === "ios" && Number(Platform.Version) >= 26;
 
 export const GlassEffectView = (props: GlassEffectViewProps) => {
-  const nativeAvailable = NativeModule?.isAvailable();
-
-  if (nativeAvailable) {
+  if (isNativeModuleAvailable && props.useNative !== false) {
     return <NativeGlassEffectView {...props} />;
   }
 

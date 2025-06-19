@@ -10,7 +10,7 @@
 
 using namespace facebook::react;
 
-@interface GlassEffectView () <RCTGlassEffectViewProtocol>
+@interface GlassEffectView () <RCTGlassEffectViewViewProtocol>
 
 @end
 
