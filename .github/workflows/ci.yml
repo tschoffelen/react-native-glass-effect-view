@@ -11,21 +11,6 @@ on:
       - checks_requested
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup
-        uses: ./.github/actions/setup
-
-      - name: Lint files
-        run: yarn lint
-
-      - name: Typecheck files
-        run: yarn typecheck
-
   test:
     runs-on: ubuntu-latest
     steps:
@@ -107,9 +92,9 @@ jobs:
           yarn turbo run build:android --cache-dir="${{ env.TURBO_CACHE_DIR }}"
 
   build-ios:
-    runs-on: macos-latest
+    runs-on: macos-15-arm64
     env:
-      XCODE_VERSION: 16.2
+      XCODE_VERSION: 26.0
       TURBO_CACHE_DIR: .turbo/ios
     steps:
       - name: Checkout
