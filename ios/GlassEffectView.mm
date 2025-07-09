@@ -69,16 +69,34 @@ using namespace facebook::react;
   const auto &oldViewProps = *std::static_pointer_cast<GlassEffectViewProps const>(_props);
   const auto &newViewProps = *std::static_pointer_cast<GlassEffectViewProps const>(props);
 
-  Class glassClass = NSClassFromString(@"UIGlassEffect");
+  Class glassClass = nil;
+  if (newViewProps.useContainerEffect) {
+    glassClass = NSClassFromString(@"UIGlassContainerEffect");
+  } else {
+    glassClass = NSClassFromString(@"UIGlassEffect");
+  }
 
   if (glassClass) {
-    if (oldViewProps.tintColor != newViewProps.tintColor || oldViewProps.isInteractive != newViewProps.isInteractive) {
+    if (
+      oldViewProps.tintColor != newViewProps.tintColor ||
+      oldViewProps.isInteractive != newViewProps.isInteractive ||
+      oldViewProps.useContainerEffect != newViewProps.useContainerEffect
+    ) {
       id glassEffect = [[glassClass alloc] init];
 
       // Apply props
       NSString *colorToConvert = [[NSString alloc] initWithUTF8String:newViewProps.tintColor.c_str()];
-      [glassEffect setTintColor:[self hexStringToColor:colorToConvert]];
-      [glassEffect setInteractive:newViewProps.isInteractive];
+      UIColor *tintColor = [self hexStringToColor:colorToConvert];
+
+      if ([glassEffect respondsToSelector:@selector(setTintColor:)]) {
+        [glassEffect setTintColor:tintColor];
+      }
+      if ([glassEffect respondsToSelector:@selector(setInteractive:)]) {
+        [glassEffect setInteractive:newViewProps.isInteractive];
+      }
+      if ([glassEffect respondsToSelector:@selector(setSpacing:)]) {
+        [glassEffect setSpacing:6.0]; // Or expose a `spacing` prop in JS and use that
+      }
 
       UIVisualEffectView *newView = [[UIVisualEffectView alloc] initWithEffect:glassEffect];
 
