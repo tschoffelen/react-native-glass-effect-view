@@ -15,5 +15,6 @@ RCT_EXPORT_MODULE(GlassEffectView)
 }
 
 RCT_EXPORT_VIEW_PROPERTY(color, NSString)
+RCT_EXPORT_VIEW_PROPERTY(cornerRadius, CGFloat)
 
 @end

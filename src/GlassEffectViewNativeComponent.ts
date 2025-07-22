@@ -9,6 +9,7 @@ export interface GlassEffectViewProps extends ViewProps {
   tintColor?: string;
   appearance?: WithDefault<GlassEffectAppearance, "default">;
   useNative?: WithDefault<boolean, true>;
+  cornerRadius?: Double; // <--- добавил правильно!
 }
 
 export default codegenNativeComponent<GlassEffectViewProps>("GlassEffectView");
