@@ -1,6 +1,6 @@
 {
   "name": "react-native-glass-effect-view",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "A native liquid glass view for iOS, with fallbacks for older versions and Android.",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
