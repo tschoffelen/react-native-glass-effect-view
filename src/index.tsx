@@ -8,8 +8,13 @@ export * from "./GlassEffectViewNativeComponent";
 
 export type GlassEffectViewProps = Omit<InternalProps, "useContainerEffect">;
 
+const getIOSMajorVersion = (): number => {
+  const version = String(Platform.Version);
+  return parseInt(version.split('.')?.[0] ?? '0', 10);
+};
+
 export const isNativeModuleAvailable =
-  Platform.OS === "ios" && Number(Platform.Version) >= 26;
+  Platform.OS === "ios" && getIOSMajorVersion() >= 26;
 
 const GlassEffectViewImpl = (props: InternalProps) => {
   if (isNativeModuleAvailable && props.useNative !== false) {
