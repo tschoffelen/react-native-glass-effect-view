@@ -13,7 +13,6 @@ import { GlassEffectView } from 'react-native-glass-effect-view';
 export default function App() {
   const [options, setOptions] = useState({
     useNative: true,
-    isInteractive: true,
     tintColor: undefined as string | undefined,
     appearance: 'default',
     darkBackground: false,
@@ -31,7 +30,6 @@ export default function App() {
       >
         <View style={styles.previewInner}>
           <GlassEffectView
-            isInteractive={options.isInteractive}
             tintColor={options.tintColor}
             useNative={options.useNative}
             appearance={options.appearance}
@@ -50,7 +48,6 @@ export default function App() {
             </Text>
           </GlassEffectView>
           <GlassEffectView
-            isInteractive={options.isInteractive}
             tintColor={options.tintColor}
             useNative={options.useNative}
             appearance={options.appearance}
@@ -80,15 +77,6 @@ export default function App() {
               }
             />
             <Text>Use native: {options.useNative ? 'yes' : 'no'}</Text>
-          </View>
-          <View style={styles.option}>
-            <Switch
-              value={options.isInteractive}
-              onValueChange={(value) =>
-                setOptions({ ...options, isInteractive: value })
-              }
-            />
-            <Text>Interactive: {options.isInteractive ? 'yes' : 'no'}</Text>
           </View>
           <View style={styles.option}>
             <Switch

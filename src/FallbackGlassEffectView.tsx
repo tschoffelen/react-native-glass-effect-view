@@ -19,7 +19,6 @@ export const FallbackGlassEffectView = (props: GlassEffectViewProps) => {
       {...props}
       style={[
         styles.container,
-        props.isInteractive && styles.interactive,
         {
           position: flattenedStyle.position,
           top: flattenedStyle.top,
@@ -63,12 +62,9 @@ export const FallbackGlassEffectView = (props: GlassEffectViewProps) => {
 const lightStyles = StyleSheet.create({
   container: {
     borderRadius: 0,
-    boxShadow: "0px 6px 24px rgba(0, 0, 0, 0.2)",
+    boxShadow: "0px 6px 27px rgba(0, 0, 0, 0.2)",
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: "rgba(255, 255, 255, 0.5)",
-  },
-  interactive: {
-    boxShadow: "0px 6px 32px rgba(0, 0, 0, 0.2)",
   },
   blur: {
     ...StyleSheet.absoluteFillObject,

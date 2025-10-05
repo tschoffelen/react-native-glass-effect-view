@@ -21,7 +21,7 @@ import { GlassEffectView } from "react-native-glass-effect-view";
 
 const App = () => {
   return (
-    <GlassEffectView isInteractive>
+    <GlassEffectView>
       <Text>Hello world!</Text>
     </GlassEffectView>
   );
@@ -32,7 +32,6 @@ const App = () => {
 
 | Prop            | Type                                 | Description                                                                                                       |
 | --------------- | ------------------------------------ | ----------------------------------------------------------------------------------------------------------------- |
-| `isInteractive` | `boolean`                            | Makes the glass effect more prominent with enhanced shadow effects when `true`                                    |
 | `appearance`    | `"light"` \| `"dark"` \| `"default"` | Controls the visual appearance of the glass effect. `"default"` follows the system color scheme                   |
 | `useNative`     | `boolean`                            | Whether to use the native iOS implementation when available (iOS 26+). Set to `false` to force fallback rendering |
 | `tintColor`     | `string`                             | Custom background color for the glass effect. When provided, overrides the default appearance-based background    |

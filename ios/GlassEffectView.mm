@@ -79,7 +79,6 @@ using namespace facebook::react;
   if (glassClass) {
     if (
       oldViewProps.tintColor != newViewProps.tintColor ||
-      oldViewProps.isInteractive != newViewProps.isInteractive ||
       oldViewProps.useContainerEffect != newViewProps.useContainerEffect
     ) {
       id glassEffect = [[glassClass alloc] init];
@@ -91,11 +90,8 @@ using namespace facebook::react;
       if ([glassEffect respondsToSelector:@selector(setTintColor:)]) {
         [glassEffect setTintColor:tintColor];
       }
-      if ([glassEffect respondsToSelector:@selector(setInteractive:)]) {
-        [glassEffect setInteractive:newViewProps.isInteractive];
-      }
       if ([glassEffect respondsToSelector:@selector(setSpacing:)]) {
-        [glassEffect setSpacing:6.0]; // Or expose a `spacing` prop in JS and use that
+        [glassEffect setSpacing:6.0];
       }
 
       UIVisualEffectView *newView = [[UIVisualEffectView alloc] initWithEffect:glassEffect];
