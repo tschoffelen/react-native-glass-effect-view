@@ -54,6 +54,12 @@ using namespace facebook::react;
   _view.layer.cornerRadius = self.layer.cornerRadius;
 }
 
+- (void)layoutSubviews
+{
+  [super layoutSubviews];
+  _view.frame = self.bounds;
+}
+
 - (void)mountChildComponentView:(UIView<RCTComponentViewProtocol> *)childComponentView index:(NSInteger)index
 {
   [_view.contentView mountChildComponentView:childComponentView index:index];
