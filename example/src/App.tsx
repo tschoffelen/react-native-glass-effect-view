@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Text,
   StyleSheet,
@@ -7,8 +7,56 @@ import {
   Switch,
   SafeAreaView,
   Image,
+  Pressable,
 } from 'react-native';
 import { GlassEffectView } from 'react-native-glass-effect-view';
+
+/**
+ * Demonstrates the layoutSubviews fix.
+ *
+ * Without the fix, the "Delayed Mount" cards render as completely transparent
+ * because the UIVisualEffectView frame is never synced with its parent bounds
+ * when the component mounts during an async state transition.
+ *
+ * Tap "Toggle Delayed Cards" to show/hide the conditionally-mounted cards.
+ * They should render with the glass effect immediately on mount.
+ */
+const DelayedMountDemo = () => {
+  const [showCards, setShowCards] = useState(false);
+  const [showDelayedCards, setShowDelayedCards] = useState(false);
+
+  // Simulate an async state transition (e.g., loading → content)
+  useEffect(() => {
+    if (showCards) {
+      const timer = setTimeout(() => setShowDelayedCards(true), 500);
+      return () => clearTimeout(timer);
+    }
+    setShowDelayedCards(false);
+  }, [showCards]);
+
+  return (
+    <View style={styles.demoSection}>
+      <Pressable
+        onPress={() => setShowCards((prev) => !prev)}
+        style={styles.toggleButton}
+      >
+        <Text style={styles.toggleText}>
+          {showCards ? 'Hide Delayed Cards' : 'Show Delayed Cards'}
+        </Text>
+      </Pressable>
+      {showDelayedCards && (
+        <View style={styles.cardRow}>
+          <GlassEffectView style={styles.card}>
+            <Text style={styles.cardText}>Delayed{'\n'}Mount 1</Text>
+          </GlassEffectView>
+          <GlassEffectView style={styles.card}>
+            <Text style={styles.cardText}>Delayed{'\n'}Mount 2</Text>
+          </GlassEffectView>
+        </View>
+      )}
+    </View>
+  );
+};
 
 export default function App() {
   const [options, setOptions] = useState({
@@ -44,7 +92,7 @@ export default function App() {
                 fontWeight: '500',
               }}
             >
-              Hello World
+              Always Mounted
             </Text>
           </GlassEffectView>
           <GlassEffectView
@@ -65,6 +113,8 @@ export default function App() {
             />
           </GlassEffectView>
         </View>
+
+        <DelayedMountDemo />
       </ImageBackground>
 
       <SafeAreaView>
@@ -157,5 +207,38 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 30,
+  },
+  demoSection: {
+    marginTop: 24,
+    alignItems: 'center',
+    gap: 16,
+  },
+  toggleButton: {
+    backgroundColor: 'rgba(0,0,0,0.3)',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 12,
+  },
+  toggleText: {
+    color: '#fff',
+    fontSize: 15,
+    fontWeight: '600',
+  },
+  cardRow: {
+    flexDirection: 'row',
+    gap: 12,
+  },
+  card: {
+    width: 140,
+    height: 80,
+    borderRadius: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  cardText: {
+    color: 'rgba(255,255,255,0.8)',
+    fontSize: 14,
+    fontWeight: '500',
+    textAlign: 'center',
   },
 });
